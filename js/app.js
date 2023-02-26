@@ -36,7 +36,7 @@ const displayPhone =(phones,datalimit) =>{
         <div class="card-body">
           <h5 class="card-title">${phone.phone_name}</h5>
           <p class="card-text">This is a longer card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
-          <button onclick="loadPhonesDetails('${phone.slug}')" class="btn btn-primary">Show Details</button>
+          <button onclick="loadPhonesDetails('${phone.slug}')" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#phoneModal">Show Details</button>
         </div>
       </div>
         `;
@@ -84,8 +84,19 @@ document.getElementById('search-field').addEventListener('keypress', function(e)
     const url =`https://openapi.programming-hero.com/api/phone/${id}`;
     const res =await fetch(url);
     const data =await res.json();
-    console.log(data.data);
+    phoneModalDetails(data.data);
 
  }
- 
-//loadPhone();
+ const phoneModalDetails = phone =>{
+     console.log(phone);
+     const modalTitle = document.getElementById('phoneModallLabel');
+     modalTitle.innerText =phone.name;
+     const phoneDetails = document.getElementById('phone-details');
+     phoneDetails.innerHTML =`
+       <p>Release Date: ${phone.releaseDate ? phone.releaseDate : 'no release date found'}</p>
+       <p>Others: ${phone.others ? phone.others.Bluetooth : 'No Bluetooth Information'}</p>
+       <p>Storage: ${phone.mainFeatures.storage}</p> 
+     `;
+     
+ }
+loadPhone('apple');
