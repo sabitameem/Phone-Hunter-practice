@@ -99,4 +99,4 @@ document.getElementById('search-field').addEventListener('keypress', function(e)
      `;
      
  }
-loadPhone('apple');
+//loadPhone('apple');
